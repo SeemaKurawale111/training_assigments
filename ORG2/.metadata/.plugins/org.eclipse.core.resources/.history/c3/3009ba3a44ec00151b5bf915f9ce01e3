@@ -1,0 +1,12 @@
+public class Aggregate_Day10
+{
+ 
+public void leadRecord()
+{
+  List <AggregateResult> listLeadSource = [SELECT count(id),leadsource 
+                                           FROM lead 
+                                           GROUP BY leadsource 
+                                           HAVING COUNT(leadsource) >10];
+ system.debug(listLeadSource);
+}
+}

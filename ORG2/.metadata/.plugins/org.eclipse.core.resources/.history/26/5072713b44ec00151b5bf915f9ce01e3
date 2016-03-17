@@ -1,0 +1,19 @@
+public class DomainTriggerHandler 
+{
+    public void onBeforeInsert( list<Contact> listOfContacts)
+    {
+        String[] searchEmailKey=(listOfContacts.get(0).email).split('@');
+        List<Account> arrayAccounts = [select name from Account where Domain_Name__c=: searchEmailKey[1] ];
+        
+        system.debug(searchEmailKey[1]);
+        system.debug(arrayAccounts);
+        
+        for(Contact contact: listOfContacts)
+        {
+             for(Account account :arrayAccounts)
+                {
+                     contact.accountID=account.Id;
+                }
+        } 
+    }
+}

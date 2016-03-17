@@ -1,0 +1,4 @@
+<apex:component controller="ComponentController" >
+   Component.apex.pageBlock p = new Component.apex.pageBlock();
+   p.facet.footer = 'footerFacet';
+</apex:component>

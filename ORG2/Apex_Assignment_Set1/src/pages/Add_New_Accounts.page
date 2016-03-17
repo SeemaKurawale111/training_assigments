@@ -1,0 +1,18 @@
+<apex:page standardController="Account" extensions="AccountExtensionClass">    
+    <apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection title="Enter Account Details" >
+            <apex:inputField value="{!account.name}" required="true"/>        
+            <apex:inputField value="{!account.industry}"/>
+            <apex:inputField value="{!account.Email__c}" required="true"/>
+            <apex:inputField value="{!account.AccountNumber}"/> 
+            <apex:inputField value="{!account.Phone}"/>
+            <apex:inputField value="{!account.Website}"/>           
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}" />
+            <apex:commandButton value="Cancel" immediate="true" action="{!URLFOR($Action.Account.List, $ObjectType.Account)}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

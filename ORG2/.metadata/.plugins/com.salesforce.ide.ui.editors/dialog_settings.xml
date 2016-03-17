@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="com.salesforce.ide.ui.editors.templates.contextType.apexClass">
+		<item value="New Apex Class" key="lastTemplate"/>
+		<item value="true" key="useTemplate"/>
+	</section>
+	<section name="com.salesforce.ide.ui.editors.templates.contextType.apexPage">
+		<item value="New Apex Page" key="lastTemplate"/>
+		<item value="true" key="useTemplate"/>
+	</section>
+	<section name="com.salesforce.ide.ui.editors.templates.contextType.apexTrigger">
+		<item value="New Apex Trigger" key="lastTemplate"/>
+		<item value="true" key="useTemplate"/>
+	</section>
+</section>

@@ -1,0 +1,7 @@
+trigger DomainTrigger on Contact (before insert) 
+{
+    List<Contact> listOfContacts=new List<contact>(trigger.new);
+    
+    DomainTriggerHandler DomainTriggerHandlerObj=new DomainTriggerHandler();
+    DomainTriggerHandlerObj.onBeforeInsert(listOfContacts);
+}

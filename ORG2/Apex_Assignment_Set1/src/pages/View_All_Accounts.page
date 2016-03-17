@@ -1,0 +1,56 @@
+<apex:page standardController="Account" extensions="AccountExtensionClass">
+<!-- apex:image url="{!$Resource.VisualForceImage}" width="300" height="100"/-->
+
+ <apex:form >  
+ <apex:inputText value="{!searchstring}" label="Input"/>   
+  <apex:commandButton value="Search records" action="{!search}"/>  
+  <apex:commandButton value="Clear records" action="{!clear}"/>  
+   <apex:pageBlock title="Search Result">  
+    <apex:pageblockTable value="{!searchAccountList}" var="a">  
+         <apex:column >  
+              <apex:outputlink value="/{!a.id}">{!a.Name}</apex:outputlink>  
+         </apex:column>  
+     <apex:column value="{!a.id}"/>  
+    </apex:pageBlockTable> 
+   <apex:facet name="footer" > Count : {!searchAccountSize} </apex:facet>    
+   </apex:pageBlock>   
+
+   <apex:pageBlock title="Account List" id="AccountListID">
+      <apex:pageBlockTable value="{!accountList}" var="account">
+         <apex:column >
+             <apex:commandLink value="{!account.Name}" action="/{!account.id}"/>
+         </apex:column>
+         <apex:column value="{!account.Email__c}"/>
+         <apex:column value="{!account.Phone}"/>
+          <apex:column value="{!account.Website}"/>
+         <apex:column >
+             <apex:commandButton value="Manage Contacts" onclick="window.open('/apex/Account_Contacts?id={!account.id}','_parent')"/>
+             <!--apex:param name="accountId" value="{!account.Id}" assignTo="{!accountCurrentId}"/-->
+         </apex:column>
+      </apex:pageBlockTable>
+     <apex:facet name="footer" > Count : {!accountSize} </apex:facet>
+   </apex:pageBlock>
+   </apex:form>
+   
+   <script>
+   function deleteRemoteContact(contactId) 
+        {          
+            Visualforce.remoting.Manager.invokeAction(
+                    'AccountExtensionClass.deleteContact',
+                    contactId,
+                    function(result, event)
+                    {
+                        if (event.status) 
+                        {
+                         
+                        } 
+                        else 
+                        {
+                            document.getElementById("responseErrors").innerHTML = event.message;
+                        }
+                    },
+                    {escape: true}
+                );
+        }
+  </script>
+</apex:page>

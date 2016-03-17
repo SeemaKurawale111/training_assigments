@@ -1,0 +1,61 @@
+@isTest
+public class DomainTriggerTest 
+{   static testmethod void testContactTrigger_one()
+    {
+     Account a =new Account();
+      a.Name='Admin';
+      a.Domain_Name__c='gmail.com';
+      insert a;
+       System.assertEquals(a.name, 'Admin');    
+       Contact c =new Contact();
+       c.LastName= 'Seema';  
+       c.Email='seemakurawale@gmail.com';
+       c.MobilePhone= '8446223370';
+       insert c;   
+       System.assertEquals(c.Lastname, 'Seema');  
+            
+    }
+
+ static testmethod void testContactTrigger_two()
+    {
+   List<Account> AccList =new List <Account>();
+      Account ac=new Account(name='abc',Domain_Name__c='yahoo.com');
+      AccList.add(ac);
+      insert AccList;
+      Contact c =new Contact();
+      c.LastName= 'Seema';  
+      c.Email='seemakurawale@yahoo.com';
+      c.MobilePhone= '8446223370';
+      insert c;   
+       System.assertEquals(c.Lastname, 'Seema');  
+            
+    }
+ static testmethod void testContactTrigger_three()
+    {
+   List<Account> AccList =new List <Account>();
+      Account ac=new Account(name='abc',Domain_Name__c='yahoo.com');
+      AccList.add(ac);
+      insert AccList;
+      Contact c =new Contact();
+      c.LastName= 'Seema';  
+      c.Email='seemakurawale@gmail.com';
+      insert c;   
+       System.assertEquals(c.Lastname, 'Seema');  
+            
+    }
+    
+     static testmethod void testContactTrigger_four()
+    {
+   List<Account> AccList =new List <Account>();
+      Account ac=new Account(name='abc',Domain_Name__c='gmail.com');
+      AccList.add(ac);
+      insert AccList;
+      Contact c =new Contact();
+      c.LastName= 'Seema';  
+      c.Email=' ';
+      insert c;   
+       System.assertEquals(c.Lastname, 'Seema');  
+            
+    }
+    
+}
