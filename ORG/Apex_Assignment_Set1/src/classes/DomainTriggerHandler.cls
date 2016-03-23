@@ -1,17 +1,38 @@
 public class DomainTriggerHandler 
 {
-    public void onBeforeInsert( list<Contact> objC)
+    public void onBeforeInsert()
     {
-        String[] searchEmailKey=(objC.get(0).email).split('@');
-        List<Account> arrayAccounts = [select name from Account where Domain_Name__c=: searchEmailKey[1] ];
-        system.debug(searchEmailKey[1]);
-        system.debug(arrayAccounts);
-        for(Contact c:objC)
+      Set<String> domainSet = new Set<String>();
+      //Split & get the doamin
+      for(sObject contactItr : Trigger.new)
+      {
+        if(String.isNotBlank(String.valueOf(contactItr.get('email'))))
         {
-             for(Account a:arrayAccounts)
-                {
-                     C.accountID=a.Id;
-                }
-        } 
+           String emailString = String.valueOf(contactItr.get('email'));
+           domainSet.add(emailString.subString(emailString.indexOf('@')+1,emailString.length()));
+        }
+      }
+      
+      Map<String,Id> domainAccIdMap = new Map<String,Id>();
+      //Query on Account to get associate account for the domain
+      for(Account accountItr : [SELECT Id, Domain_Name__c FROM Account WHERE Domain_Name__c IN :domainSet])
+      {
+          domainAccIdMap.put(accountItr.Domain_Name__c,accountItr.Id);
+      }
+        
+      //Associating Contact with Account
+      for(sObject contactItr : Trigger.new)
+      {
+        if(String.isNotBlank(String.valueOf(contactItr.get('email'))))
+        {  
+           String emailString = String.valueOf(contactItr.get('email'));
+           String domainString = emailString.subString(emailString.indexOf('@')+1,emailString.length());
+               
+           if(domainAccIdMap.containsKey(domainString))
+           {
+             contactItr.put('AccountId',domainAccIdMap.get(domainString));
+           } 
+        }
+      }
     }
 }

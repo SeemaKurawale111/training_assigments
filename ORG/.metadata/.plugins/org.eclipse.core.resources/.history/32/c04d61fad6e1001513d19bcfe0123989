@@ -1,9 +1,0 @@
-public with sharing class ArrayPrint 
-{
-  //Input from User left  
-    for(int index = 0; index < num; index++)
-    {
-        num[index] = index; 
-        system.debug(num[index]);
-    }
-}

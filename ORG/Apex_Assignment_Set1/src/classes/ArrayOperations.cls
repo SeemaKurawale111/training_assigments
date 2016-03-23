@@ -6,20 +6,9 @@ public class ArrayOperations
     public void sortAscending(integer [] arr)
     {
         System.debug('Array Elements in Ascending Order : ');
+        arr.sort();
+        integer lenghtOfArray = arr.size(); 
         
-        integer lenghtOfArray = arr.size();
-        for (integer index1 = 0; index1 <lenghtOfArray ; index1++)
-        {
-            for (integer index2 = index1 + 1; index2 < lenghtOfArray ; index2++ )
-            {
-                if (arr[index1] > arr[index2])
-                {
-                    integer temp =  arr[index1];
-                    arr[index1] = arr[index2];
-                    arr[index2] = temp;
-                }
-            }
-        }
         min=arr[0];
         for(integer index = 0; index < lenghtOfArray ; index++)
         {
@@ -31,22 +20,9 @@ public class ArrayOperations
     {
         System.debug('Array Elements in Ascending Order : ');
         integer lenghtOfArray = arr.size();
-        for (integer index1 = 0; index1 <lenghtOfArray ; index1++)
-        {
-            for (integer index2 = index1 + 1; index2 < lenghtOfArray ; index2++ )
-            {
-                if (arr[index1] < arr[index2])
-                {
-                    integer temp =  arr[index1];
-                    arr[index1] = arr[index2];
-                    arr[index2] = temp;
-                }
-            }
-        }
-        
-        max = arr[0];
-        
-        for(integer index = 0; index < lenghtOfArray ; index++)
+        arr.sort();
+        max = arr[lenghtOfArray-1];
+        for(integer index = lenghtOfArray-1; index >=0 ; index--)
         {
              system.debug(arr[index]);
         }

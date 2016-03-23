@@ -1,3 +1,0 @@
-trigger AddressVerificationSystemTrigger on EFT_Transaction_Status__c (before insert) {
-
-}

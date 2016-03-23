@@ -1,0 +1,41 @@
+<apex:page controller="Pagination" standardStylesheets="false" showHeader="false">
+<head>
+    <title>Account List</title>            
+    <apex:stylesheet value="{!URLFOR($Resource.Bootstrap, '/css/bootstrap.min.css')}"/>
+</head>
+
+<body>
+    <apex:pageBlock >
+      <apex:image url="{!$Resource.VisualForceImage}" width="400" height="100"/>
+        <apex:form >
+            <apex:pageBlock title="Account List">
+            <apex:pageBlockTable id="accountTable" style="width:100%" border="1" cellpadding="10%" value="{!Accounts}" var="account">
+               
+               <apex:column >
+                    <apex:commandLink value="{!account.Name}" action="/{!account.id}"/>
+                </apex:column>
+                
+                <apex:column value="{!account.Email__c}"/>
+                <apex:column value="{!account.Phone}"/>
+                <apex:column value="{!account.Website}"/>
+                <apex:column value="{!account.Industry}"/>
+                
+                <apex:column >                            
+                  <apex:commandButton value="View" onclick="window.open('/apex/Bootstrap_Contacts?id={!account.id}','_parent')" style="width:100%"/>
+                </apex:column>
+              
+            </apex:pageBlockTable>
+            
+            <apex:panelGrid columns="4" cellpadding="10%">
+              <apex:commandLink action="{!first}">   First   </apex:commandlink>
+              <apex:commandLink action="{!previous}">Previous</apex:commandlink>
+              <apex:commandLink action="{!next}">    Next    </apex:commandlink>
+              <apex:commandLink action="{!last}">    Last    </apex:commandlink>
+            </apex:panelGrid>
+           
+         </apex:pageBlock> 
+        </apex:form>
+    </apex:pageBlock>
+</body>
+         
+</apex:page>

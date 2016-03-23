@@ -1,0 +1,75 @@
+<apex:page standardController="Account" extensions="AccountExtension">    
+     <!--apex:includeScript value="{!URLFOR($Resource.remoteScriptingDeleteContact, '/deleteContactScripting.js')}"/-->
+
+    <apex:pageBlock title="Contact Information" > 
+       
+       <apex:form >
+        <apex:actionFunction name="searchAlphabetContact" action="{!displayAlphabeticalSearch}"  >
+            <apex:param name="search" value="" assignTo="{!alpha}"/>
+        </apex:actionFunction> 
+        <apex:pageBlock >
+            <table>
+                <tr>
+                    <apex:repeat value="{!alphabetList}" var="singleChar">
+                        <td><apex:outputLink onclick="scriptDisplay('{!singleChar}');return false;">{!singleChar}</apex:outputLink></td>
+                    </apex:repeat>
+                </tr>
+            </table>
+        </apex:pageBlock>    
+       
+      </apex:form>  
+                    
+        <apex:pageBlockTable value="{!ListCurrentAccount}" id="listAlphbatically" var="account" columns="1" rows="1" title="Current Account">        
+          <apex:column > 
+              <apex:facet name="header"/><h1>{!account.Name}</h1>                       
+          </apex:column>                                   
+       </apex:pageBlockTable>        
+        
+        <apex:form >
+            <apex:pageBlockTable id="ContactTable" value="{!contactList}" var="Contact"> 
+                <apex:param name="currentContactId" value="{!Contact.Id}" assignTo="{!CurrentAccountId}"/>   
+                <apex:column value="{!Contact.Name}"/>
+                <apex:column value="{!Contact.Phone}"/> 
+                <apex:column value="{!Contact.Email}"/>
+                <apex:column >               
+                    <apex:commandLink onclick="deleteRemoteContact('{!Contact.Id}'); return false;" value="Delete"/>                    
+                 </apex:column>                        
+            </apex:pageBlockTable>
+        
+            <apex:pageBlockSection columns="2">
+                <apex:commandButton value="Return" action="/apex/AccountList"/>
+                <apex:commandButton value="Delete All" action="{!deleteAll}"/>           
+            </apex:pageBlockSection>
+        </apex:form>
+
+             <apex:facet name="footer">Count of records : {!size} </apex:facet> 
+    </apex:pageBlock> 
+    
+      <script>
+        function deleteRemoteContact(contactId) 
+        {          
+            Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.AccountExtension.deleteContact}',
+                    contactId,
+                    function(result, event)
+                    {
+                        if (event.status) 
+                        {
+                         
+                        } 
+                        else 
+                        {
+                            document.getElementById("responseErrors").innerHTML = event.message;
+                        }
+                    },
+                    {escape: true}
+                );
+        }     
+
+        function scriptDisplay(searchVariable){
+            searchAlphabetContact(searchVariable);
+        }
+
+    </script> 
+   
+</apex:page>

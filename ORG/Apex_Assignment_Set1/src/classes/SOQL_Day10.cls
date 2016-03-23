@@ -14,7 +14,14 @@ public with sharing class SOQL_Day10 {
  
  public void third()
  {  
-   map<ID,Account> accountMapList = new map<ID,Account>([select ID,Name from Account]);
+   
+   Map<String,Id> accountMap = new Map<String,Id>();
+   for(Account acc:[select Name, Id from Account])
+   {
+     system.debug(acc);  
+   }
+ 
+   Map<ID,Account> accountMapList = new Map<ID,Account>([select ID,Name from Account]);
    system.debug(accountMapList);
  }
  

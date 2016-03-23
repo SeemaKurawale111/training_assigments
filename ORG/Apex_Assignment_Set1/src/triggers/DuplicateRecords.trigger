@@ -1,8 +1,11 @@
 trigger DuplicateRecords on Contact (before insert) 
 {
-	Contact[] contactList= Trigger.new;
+    Contact[] contactList= Trigger.new;
+    
     Set<String> emailSet = new Set<String>();
     Set<String> MobilenoSet = new Set<String>();
+    Set<String> duplicateEmailIds = new Set<String>();
+    Set<String> duplicateMobilenos = new Set<String>();
     
     for(Contact  s : contactList)
      {
@@ -11,9 +14,8 @@ trigger DuplicateRecords on Contact (before insert)
      }
     
      List<contact> duplicateEmailList = [Select s.Name, s.Email From Contact s where s.Email IN :emailSet];
-     List<contact> duplicateMobileList = [Select s.Name, s.MobilePhone From Contact s where s.MobilePhone IN :MobilenoSet];
-     Set<String> duplicateEmailIds = new Set<String>();
-     Set<String> duplicateMobilenos = new Set<String>();
+     List<contact> duplicateMobileList =[Select s.Name, s.MobilePhone From Contact s where s.MobilePhone IN :MobilenoSet];
+     
     
      for(Contact  s : duplicateEmailList )
      {

@@ -1,4 +1,4 @@
 git add *
-git commit -m "UPDATED Org workspace"
+git commit -m "Evaluation Test 1"
 git push -u origin master
 git status

@@ -2,12 +2,9 @@ public with sharing class OddEvenNumber
 {
  public void OddEven(integer x)
    {
-      integer  y ,z ;
+      integer result = math.mod(x,2);
       
-      y= x/2;
-      z = y * 2;
-      
-      if(x==z)
+      if(result==0)
         System.debug('Even Number');
       else
         System.debug('Odd Number ');

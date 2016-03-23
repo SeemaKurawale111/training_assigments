@@ -1,9 +1,7 @@
 trigger CloneRecords on Account (before insert) 
 {
-    List<Account> Clone = new List<Account>(trigger.new);
-    Account newclone = new Account ();
-    
-    for( Account temp : Clone)
+    Account newclone = new Account ();    
+    for( Account temp : trigger.new)
     {
         if(checkRecursion.runOnce())
         {

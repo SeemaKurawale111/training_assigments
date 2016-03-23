@@ -1,0 +1,52 @@
+<apex:page standardController="Account" extensions="EvaluationTest1_Extension" standardStylesheets="false" showHeader="false">
+<head> 
+    <style type="text/css">
+        .myClass1 { 
+                color: red; 
+        }
+</style>
+    <title>Contact List</title>
+    <apex:stylesheet value="{!URLFOR($Resource.Bootstrap, '/css/bootstrap.min.css')}"/>
+</head>
+
+<body> 
+   <apex:pageBlock >
+       <apex:image url="{!$Resource.VisualForceImage}" width="400" height="100"/>
+           <apex:form >
+                <apex:pageBlockSection title="Account Details" columns="1" >
+                      <apex:outputField value="{!account.Name}"/>
+                      <apex:outputField value="{!account.Email__c}"/>
+                      <apex:outputField value="{!account.Phone}"/>
+                      <apex:outputField value="{!account.Website}"/>
+                      <apex:outputField value="{!account.Industry}"/>
+                 </apex:pageBlockSection> 
+                                
+                 <apex:pageBlockSection title="Related Contacts">                      
+                     <apex:pageBlockTable value="{!contactList}" var="objContact"> 
+                        <apex:column value="{!objContact.Name}"/>
+                        <apex:column value="{!objContact.MobilePhone}"/> 
+                        <apex:column value="{!objContact.Email}"/>                                                                  
+                     </apex:pageBlockTable>
+                   
+                    <apex:commandButton value="Add Contact" action="{!addContact}" reRender="addContact"/>  
+
+                    <apex:outputPanel id="addContact" styleClass="myClass1" >
+                         <apex:pageBlockTable id="contactTable" border="1" cellspacing="10%" cellpadding="10%" value="{!newContactList}" var="contact" rendered="{!viewTable}" >
+                            <apex:column headerValue="Contact Name">
+                                <apex:inputField value="{!contact.LastName}" required="true"/>   
+                            </apex:column>
+                            <apex:column headerValue="Phone Number"> 
+                                <apex:inputField value="{!contact.MobilePhone}"/>  
+                            </apex:column>   
+                            <apex:column headerValue="Email">
+                                <apex:inputField value="{!contact.Email}"/>
+                            </apex:column>
+                        </apex:pageBlockTable> <br/> 
+                      <apex:commandButton value="Save" action="{!saveContact}" rendered="{!viewTable}"/>
+                   </apex:outputPanel>
+      </apex:pageBlockSection>                
+    </apex:form>          
+  </apex:pageBlock> 
+</body>
+         
+</apex:page>

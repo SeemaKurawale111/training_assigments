@@ -4,19 +4,19 @@ public with sharing class Calculator
     {
       integer result;
       
-      if(operation=='SUM')
+      if(operation.equalsignorecase('SUM'))
      {
        result=inp1+inp2;
      }
-     if(operation=='SUB') 
+     if(operation.equalsignorecase('SUB'))
      {    
             result=inp1-inp2;
      }
-     if(operation=='MUL')
+    if(operation.equalsignorecase('MUL'))
      {     
              result=inp1*inp2;
      }
-     if(operation=='DIV')
+   if(operation.equalsignorecase('DIV'))
      {   
               result=inp1/inp2;
      }
